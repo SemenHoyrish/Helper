@@ -163,33 +163,15 @@ std::vector<std::string> split (std::string s, std::string delimiter) {
     return res;
 }
 
-int main(int argc, char *argv[])
+void inf(string request)
 {
-    // for (int i = 0; i < argc; i++)
-    // {
-    //     cout << argv[i] << endl;
-    // }
-
-    if (argc != 2)
-    {
-        log_error("Incorrect number of arguments! Got " + std::to_string(argc) + ", expected 2");
-        return 1;
-    }
-
-    // math/area_triangle
-    // -> inf math/area_triangle
-    //  +++ 
-    // calc нок
-    // calc нод
-    // etc
-
-    auto info_path = split(argv[1], "/");
+    auto info_path = split(request, "/");
     string message = "";
 
     if (info.count(info_path[0]) == 0)
     {
         log_error("Can`t find " + info_path[0]);
-        return 0;
+        exit(0);
     }
 
     if (info.at(info_path[0]).size() == 1 && info.at(info_path[0]).count("_") == 1 )
@@ -205,12 +187,12 @@ int main(int argc, char *argv[])
         else if (info_path.size() == 1)
         {
             log_error("Can`t find " + info_path[0] + "/_");
-            return 0;
+            exit(0);
         }
         else if (info.at(info_path[0]).count(info_path[1]) == 0)
         {
             log_error("Can`t find " + info_path[0] + "/" + info_path[1]);
-            return 0;
+            exit(0);
         }
         else
         {
@@ -220,6 +202,37 @@ int main(int argc, char *argv[])
 
 
     default_write(message);
+}
+
+int main(int argc, char *argv[])
+{
+    // for (int i = 0; i < argc; i++)
+    // {
+    //     cout << argv[i] << endl;
+    // }
+
+    if (argc != 3)
+    {
+        log_error("Incorrect number of arguments! Got " + std::to_string(argc) + ", expected 3");
+        exit(1);
+    }
+
+    // math/area_triangle
+    // -> inf math/area_triangle
+    //  +++ 
+    // calc нок
+    // calc нод
+    // etc
+
+    string s = "inf";
+    if ( s.compare(argv[1]) == 0)
+    {
+        inf(argv[2]);
+    }
+    else
+    {
+        log_error("????");
+    }
     
 
     return 0;
