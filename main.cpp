@@ -149,6 +149,29 @@ map<string, map<string, string>> info = {
     },
 };
 
+map<string, string> synonyms = {
+    {
+        "nok",
+        "lcm"
+    },
+    {
+        "nod",
+        "gcd"
+    },
+    {
+        "math/A_tr",
+        "math/area_triangle"
+    },
+    {
+        "math/A_rtr",
+        "math/area_right_triangle"
+    },
+    {
+        "math/A_par",
+        "math/area_parallelogram"
+    },
+};
+
 std::vector<std::string> split (std::string s, std::string delimiter) {
     size_t pos_start = 0, pos_end, delim_len = delimiter.length();
     std::string token;
@@ -246,6 +269,16 @@ int main(int argc, char *argv[])
     // calc нок lcm
     // calc нод gcd
     // etc
+
+    for(int i = 0; i < argc; i++)
+    {
+        string cur = argv[i];
+        if (synonyms.count(cur) == 1)
+        {
+            argv[i] = synonyms.at(argv[i]).data();
+            log_warning("'" + cur + "' replaced with '" + argv[i] + "'");
+        }
+    }
 
     vector<string> strs = {
         "inf",
