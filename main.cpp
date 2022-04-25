@@ -2,6 +2,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <numeric>
 
 using namespace std;
 
@@ -204,6 +205,28 @@ void inf(string request)
     default_write(message);
 }
 
+void lcm(int num1, int num2)
+{
+    string result = "LCM(" + to_string(num1) +
+                    ", "
+                    + to_string(num2)
+                    + ")"
+                    + " == "
+                    + to_string(std::lcm(num1, num2));
+    default_write(result);
+}
+
+void gcd(int num1, int num2)
+{
+    string result = "GCD(" + to_string(num1) +
+                    ", "
+                    + to_string(num2)
+                    + ")"
+                    + " == "
+                    + to_string(std::gcd(num1, num2));
+    default_write(result);
+}
+
 int main(int argc, char *argv[])
 {
     // for (int i = 0; i < argc; i++)
@@ -211,27 +234,40 @@ int main(int argc, char *argv[])
     //     cout << argv[i] << endl;
     // }
 
-    if (argc != 3)
+    if (argc < 2)
     {
-        log_error("Incorrect number of arguments! Got " + std::to_string(argc) + ", expected 3");
+        log_error("Incorrect number of arguments! Got " + std::to_string(argc) + ", expected at least 2");
         exit(1);
     }
 
     // math/area_triangle
     // -> inf math/area_triangle
     //  +++ 
-    // calc нок
-    // calc нод
+    // calc нок lcm
+    // calc нод gcd
     // etc
 
-    string s = "inf";
-    if ( s.compare(argv[1]) == 0)
+    vector<string> strs = {
+        "inf",
+        "lcm",
+        "gcd",
+    };
+
+    if ( strs[0].compare(argv[1]) == 0 )
     {
         inf(argv[2]);
     }
+    else if ( strs[1].compare(argv[1]) == 0 )
+    {
+        lcm(stoi(argv[2]), stoi(argv[3]));
+    }
+    else if ( strs[2].compare(argv[1]) == 0 )
+    {
+        gcd(stoi(argv[2]), stoi(argv[3]));
+    }
     else
     {
-        log_error("????");
+        log_error("Undefined help type");
     }
     
 
